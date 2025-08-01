@@ -1,32 +1,26 @@
 #include "robot.hpp"
 
-pros ::Controller master(pros: :E_CONTROLLER_MASTER);
-pros ::Controller partner(pros: :E_CONTROLLER_PARTNER);
+pros::Controller master(pros::E_CONTROLLER_MASTER);
+pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 
 pros::MotorGroup left_mg({1, 2, 3});    
 pros::MotorGroup right_mg({-4, -5, -6});
 
-lemlib: Drivetrain drivetrain(&left_mg, &right_mg,
-12.625, // track width in inches
-lemlib:: Omniwheel:: NEW_325, // Wheel configuration
-450, // RPM
-2 // Drift was 2  0.5
+lemlib::Drivetrain drivetrain(&left_mg, &right_mg,
+                              12.625, // track width in inches
+                              lemlib:: Omniwheel:: NEW_325, // Wheel configuration
+                              450, // RPM
+                              2 // Drift was 2  0.5
 );
 
-pros:: Imu imu(16); // TODO: Change the port number to the correct one
+pros::Imu imu(16); // TODO: Change the port number to the correct one
 
-pros:: Rotation horizontalRotation(6); // TODO: Change the port number to the corect one ,
-pros:: Rotation verticallRotation(7); // TODO: Change the port number to the corect one
+pros::Rotation horizontalRotation(6); // TODO: Change the port number to the corect one ,
+pros::Rotation verticallRotation(7); // TODO: Change the port number to the corect one
 
-lemlib:: TrackingWheel horizontalTrackingWheel(&horizontalRotation,
-                                            2
+lemlib::TrackingWheel horizontal_tracking_wheel(&horizontalRotation, lemlib::Omniwheel::NEW_2, -5.75);
+lemlib::TrackingWheel vertical_tracking_wheel(&verticallRotation, lemlib::Omniwheel::NEW_2, -2.5);
 
-);
-
-lemlib :: TrackingWheel verticalTrackingWheel(&verticalRotation,
-
-
-);
 
 lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
