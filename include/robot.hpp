@@ -25,3 +25,12 @@ extern lemlib::ControllerSettings lateral_controller;
 extern lemlib::ControllerSettings angular_controller;
 
 extern lemlib::Chassis chassis;
+
+extern pros::Motor Bottom_Skibidi_Roller;
+extern pros::Motor Top_Skibidi_Roller;
+extern pros::Motor Inside_Skibidi_Roller;
+
+extern pros::adi::Pneumatics SkiBidi_Bucket;
+extern pros::adi::Pneumatics SkiBidi_Switcheroo;
+extern pros::adi::Pneumatics SkiBidi_Matchloader;
+
