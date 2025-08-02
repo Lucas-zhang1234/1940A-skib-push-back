@@ -60,3 +60,13 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
                         angular_controller, // angular PID settings
                         sensors // odometry sensors
 );
+
+
+pros::Motor Bottom_Skibidi_Roller(1, pros::v5::MotorGears::blue);
+pros::Motor Top_Skibidi_Roller(2, pros::v5::MotorGears::green);
+pros::Motor Inside_Skibidi_Roller(10, pros::v5::MotorGears::green);
+
+
+pros::adi::Pneumatics SkiBidi_Bucket({22, 'h'}, false);            // Starts retracted, extends when the ADI port is high
+pros::adi::Pneumatics SkiBidi_Switcheroo({22, 'g'}, false);
+pros::adi::Pneumatics SkiBidi_Matchloader({22, 'g'}, false);
