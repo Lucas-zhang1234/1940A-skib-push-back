@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lemlib/api.hpp" // IWYU pragma: keep
+#include "pros/misc.h"
 #include "robot.hpp"
 
 
@@ -58,9 +59,42 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	
+	int isHighGoal = 127;
 	while (true) {
-		
+		double forwards = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		double turn = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+
+		chassis.arcade(forwards, turn);
+
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+			Bottom_Skibidi_Roller.move_voltage(12000);
+		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+			Bottom_Skibidi_Roller.move_voltage(-12000);
+		} else {
+			Bottom_Skibidi_Roller.move(0);
+		}	
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+			Top_Skibidi_Roller.move(isHighGoal);
+		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+			Top_Skibidi_Roller.move(isHighGoal);
+		} else {
+			Top_Skibidi_Roller.move(0);
+		}
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+			Inside_Skibidi_Roller.move(isHighGoal);
+		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+			Inside_Skibidi_Roller.move(isHighGoal);
+		} else {
+			Top_Skibidi_Roller.move(0);
+		}
+
+		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
+			isHighGoal *= -1;
+		}
+		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
+			SkiBidi_Bucket.toggle();
+		}
+
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
