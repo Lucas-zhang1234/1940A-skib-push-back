@@ -1,6 +1,7 @@
 #include "main.h"
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "pros/misc.h"
+#include "pros/rtos.hpp"
 #include "robot.hpp"
 
 
@@ -11,7 +12,7 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    
+	chassis.calibrate();
 }
 
 /**
@@ -43,7 +44,10 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	chassis.setPose(0, 0, 0);
+	chassis.turnToHeading(90, 100000);
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -85,14 +89,18 @@ void opcontrol() {
 		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
 			Inside_Skibidi_Roller.move(isHighGoal);
 		} else {
-			Top_Skibidi_Roller.move(0);
+			Inside_Skibidi_Roller.move(0);
 		}
 
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
 			isHighGoal *= -1;
 		}
-		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
+		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
 			SkiBidi_Bucket.toggle();
+		}
+		 
+		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
+			SkiBidi_Switcheroo.toggle();
 		}
 
 		pros::delay(20);                               // Run for 20 ms then update

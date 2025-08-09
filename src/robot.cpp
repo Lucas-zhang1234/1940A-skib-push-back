@@ -3,8 +3,8 @@
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 
-pros::MotorGroup left_mg({1, 2, 3});    
-pros::MotorGroup right_mg({-4, -5, -6});
+pros::MotorGroup left_mg({-3, -4, -5});    
+pros::MotorGroup right_mg({8, 7, 6});
 
 lemlib::Drivetrain drivetrain(&left_mg, &right_mg,
                               12.625, // track width in inches
@@ -13,7 +13,7 @@ lemlib::Drivetrain drivetrain(&left_mg, &right_mg,
                               2 // Drift was 2  0.5
 );
 
-pros::Imu imu(16); // TODO: Change the port number to the correct one
+pros::Imu imu(8); // TODO: Change the port number to the correct one
 
 pros::Rotation horizontalRotation(6); // TODO: Change the port number to the corect one ,
 pros::Rotation verticallRotation(7); // TODO: Change the port number to the corect one
@@ -22,9 +22,9 @@ lemlib::TrackingWheel horizontal_tracking_wheel(&horizontalRotation, lemlib::Omn
 lemlib::TrackingWheel vertical_tracking_wheel(&verticallRotation, lemlib::Omniwheel::NEW_2, -2.5);
 
 
-lemlib::OdomSensors sensors(&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
+lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
-                            &horizontal_tracking_wheel, // horizontal tracking wheel 1
+                            nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
                             &imu // inertial sensor
 );
@@ -43,7 +43,7 @@ lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
 );
 
 // angular PID controller
-lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
+lemlib::ControllerSettings angular_controller(6, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               10, // derivative gain (kD)
                                               3, // anti windup
@@ -69,4 +69,4 @@ pros::Motor Inside_Skibidi_Roller(10, pros::v5::MotorGears::green);
 
 pros::adi::Pneumatics SkiBidi_Bucket({22, 'h'}, false);            // Starts retracted, extends when the ADI port is high
 pros::adi::Pneumatics SkiBidi_Switcheroo({22, 'g'}, false);
-pros::adi::Pneumatics SkiBidi_Matchloader({22, 'g'}, false);
+pros::adi::Pneumatics SkiBidi_Matchloader({22, 'f'}, false);
