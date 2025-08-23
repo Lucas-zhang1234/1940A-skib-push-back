@@ -3,6 +3,7 @@
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
 #include "robot.hpp"
+#include "auton.h"
 
 
 /**
@@ -45,8 +46,9 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	chassis.setPose(0, 0, 0);
-	chassis.turnToHeading(90, 100000);
+	auton();
+
+
 }
 
 /**
@@ -77,30 +79,37 @@ void opcontrol() {
 		} else {
 			Bottom_Skibidi_Roller.move(0);
 		}	
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-			Top_Skibidi_Roller.move(isHighGoal);
-		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-			Top_Skibidi_Roller.move(isHighGoal);
-		} else {
-			Top_Skibidi_Roller.move(0);
-		}
-		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-			Inside_Skibidi_Roller.move(isHighGoal);
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)) {
+			Inside_Skibidi_Roller.move(12000);
 		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-			Inside_Skibidi_Roller.move(isHighGoal);
+			Inside_Skibidi_Roller.move(-12000);
 		} else {
 			Inside_Skibidi_Roller.move(0);
 		}
-
-		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
-			isHighGoal *= -1;
-		}
-		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
-			SkiBidi_Bucket.toggle();
+		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+			Top_Skibidi_Roller.move_voltage(12000);
+		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+			Top_Skibidi_Roller.move_voltage(-12000);
+		} else {
+			Top_Skibidi_Roller.move(0);
+		}	
+	
+		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
+			SkiBidi_Bucket.extend();
+		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
+			SkiBidi_Bucket.retract();
 		}
 		 
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
-			SkiBidi_Switcheroo.toggle();
+			SkiBidi_Switcheroo.extend();
+		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
+			SkiBidi_Switcheroo.retract();
+		}
+
+		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
+			SkiBidi_Matchloader.extend();
+		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+			SkiBidi_Matchloader.retract();
 		}
 
 		pros::delay(20);                               // Run for 20 ms then update
