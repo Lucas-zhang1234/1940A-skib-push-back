@@ -4,7 +4,7 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 
 pros::MotorGroup left_mg({-3, -4, -5});    
-pros::MotorGroup right_mg({8, 7, 6});
+pros::MotorGroup right_mg({9, 7, 6});
 
 lemlib::Drivetrain drivetrain(&left_mg, &right_mg,
                               12.625, // track width in inches
