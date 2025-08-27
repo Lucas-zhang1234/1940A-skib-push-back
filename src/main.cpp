@@ -65,7 +65,6 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	auton();
 	int isHighGoal = 127;
 	while (true) {
 		double forwards = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);

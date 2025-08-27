@@ -1,19 +1,28 @@
 #include "auton.h"
+#include "lemlib/asset.hpp"
 #include "robot.hpp"
 
 ASSET(path1_txt);
 ASSET(path3_txt);
+ASSET(testpath_txt);
 
 void auton() {
-    chassis.setPose(-41.553, -6.316, 110);
+    chassis.setPose(-46.874, -10.883, 115);
     Bottom_Skibidi_Roller.move(-12000);
     Inside_Skibidi_Roller.move(12000);
-    chassis.moveToPose(-21.349, -22.48, 120,  3000);
+    right_mg.move_velocity(500);
+    left_mg.move_velocity(500);
+    chassis.moveToPoint(-21.676, -22.491, 3000);
+    // chassis.moveToPose(-21.676, -22.491, 110,  3000);
     chassis.waitUntilDone();
     pros::delay(500);
     chassis.turnToHeading(270,  1000);
-    chassis.swingToPoint(-30.575, -48.321, DriveSide::LEFT, 2000, {.minSpeed=80, .earlyExitRange=20});
-    
+    chassis.moveToPoint(-34.983, -22.491, 2000);
+    chassis.turnToHeading(180, 1000);
+    chassis.moveToPoint(-34.983, -47.972, 2000);
+    chassis.turnToHeading(90, 1000);
+
+    // chassis.swingToPoint(-27.905, -47.123, DriveSide::LEFT, 5000, {.minSpeed=80, .earlyExitRange=2});
     
     // chassis.moveToPose(-11.445, -34.758, 240, 10000);
     // Inside_Skibidi_Roller.move(0);
