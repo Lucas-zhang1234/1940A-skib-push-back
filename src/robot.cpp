@@ -18,7 +18,7 @@ pros::Imu imu(8);
 pros::Rotation horizontalRotation(20); 
 pros::Rotation verticallRotation(11); 
 
-lemlib::TrackingWheel horizontal_tracking_wheel(&horizontalRotation, lemlib::Omniwheel::NEW_2, -4);
+lemlib::TrackingWheel horizontal_tracking_wheel(&horizontalRotation, lemlib::Omniwheel::NEW_2, 3.5);
 lemlib::TrackingWheel vertical_tracking_wheel(&verticallRotation, lemlib::Omniwheel::NEW_2, 3);
 
 

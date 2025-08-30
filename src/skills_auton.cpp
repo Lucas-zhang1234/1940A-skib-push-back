@@ -1,13 +1,9 @@
-#include "auton.h"
+#include "skills_auton.h"
 #include "lemlib/asset.hpp"
 #include "robot.hpp"
 
-ASSET(path1_txt);
-ASSET(path3_txt);
-ASSET(testpath_txt);
-
-void auton() {
-    chassis.setPose(-46.874, -10.883, 115);
+void skills_auton() {
+     chassis.setPose(-46.874, -10.883, 115);
     Bottom_Skibidi_Roller.move(-12000);
     // Inside_Skibidi_Roller.move(12000);
     Top_Skibidi_Roller.move(-12000);
@@ -28,15 +24,4 @@ void auton() {
     Top_Skibidi_Roller.move(-12000);
     Inside_Skibidi_Roller.move(-12000);
 
-    // chassis.swingToPoint(-27.905, -47.123, DriveSide::LEFT, 5000, {.minSpeed=80, .earlyExitRange=2});
-    
-    // chassis.moveToPose(-11.445, -34.758, 240, 10000);
-    // Inside_Skibidi_Roller.move(0);
-    // chassis.turnToHeading(90, 1000);
-    // chassis.moveToPose(-33.161, -47.037, 100, 2000);
-    // chassis.waitUntilDone();
-    // SkiBidi_Switcheroo.extend();
-    // Top_Skibidi_Roller.move(-12000);
-    // Inside_Skibidi_Roller.move(-12000);
-    
-};
+}

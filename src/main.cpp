@@ -4,6 +4,7 @@
 #include "pros/rtos.hpp"
 #include "robot.hpp"
 #include "auton.h"
+#include "skills_auton.h"
 
 
 /**
@@ -46,7 +47,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	auton();
+	skills_auton();
 
 
 }
