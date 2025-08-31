@@ -20,13 +20,14 @@ void auton() {
     chassis.turnToHeading(270,  1000);
     chassis.moveToPoint(-28.583, -23.057, 3000);
     chassis.turnToHeading(180, 1000);
-    chassis.moveToPoint(-32.434, -54.653, 2000, {.maxSpeed = 50});
+    chassis.moveToPoint(-32.434, -50.653, 2000, {.maxSpeed = 50});
     chassis.turnToHeading(90, 1000,{.maxSpeed = 60});
     chassis.moveToPoint(-23, -54, 1000,{.maxSpeed = 20});
     chassis.waitUntilDone();
     SkiBidi_Switcheroo.extend();
     Top_Skibidi_Roller.move(-12000);
     Inside_Skibidi_Roller.move(-12000);
+
 
     // chassis.swingToPoint(-27.905, -47.123, DriveSide::LEFT, 5000, {.minSpeed=80, .earlyExitRange=2});
     
