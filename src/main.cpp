@@ -74,37 +74,37 @@ void opcontrol() {
 		chassis.arcade(forwards, turn);
 
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-			Bottom_Skibidi_Roller.move_voltage(12000);
+			Bottom_Roller.move_voltage(12000);
 		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-			Bottom_Skibidi_Roller.move_voltage(-12000);
+			Bottom_Roller.move_voltage(-12000);
 		} else {
-			Bottom_Skibidi_Roller.move(0);
+			Bottom_Roller.move(0);
 		}	
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)) {
-			Inside_Skibidi_Roller.move(12000);
+			Inside_Roller.move(12000);
 		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
-			Inside_Skibidi_Roller.move(-12000);
+			Inside_Roller.move(-12000);
 		} else {
-			Inside_Skibidi_Roller.move(0);
+			Inside_Roller.move(0);
 		}
 		if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-			Top_Skibidi_Roller.move_voltage(12000);
+			Top_Roller.move_voltage(12000);
 		} else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-			Top_Skibidi_Roller.move_voltage(-12000);
+			Top_Roller.move_voltage(-12000);
 		} else {
-			Top_Skibidi_Roller.move(0);
+			Top_Roller.move(0);
 		}	
 	
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
-			SkiBidi_Bucket.extend();
+			Bucket_Base.extend();
 		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
-			SkiBidi_Bucket.retract();
+			Bucket_Base.retract();
 		}
 		 
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
-			SkiBidi_Switcheroo.extend();
+			Switcheroo.extend();
 		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
-			SkiBidi_Switcheroo.retract();
+			Switcheroo.retract();
 		}
 
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){

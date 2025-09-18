@@ -62,11 +62,11 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
 );
 
 
-pros::Motor Bottom_Skibidi_Roller(1, pros::v5::MotorGears::blue);
-pros::Motor Top_Skibidi_Roller(12, pros::v5::MotorGears::green);
-pros::Motor Inside_Skibidi_Roller(19, pros::v5::MotorGears::green);
+pros::Motor Bottom_Roller(1, pros::v5::MotorGears::blue);
+pros::Motor Top_Roller(12, pros::v5::MotorGears::green);
+pros::Motor Inside_Roller(19, pros::v5::MotorGears::green);
 
 
-pros::adi::Pneumatics SkiBidi_Bucket({22, 'h'}, false);            // Starts retracted, extends when the ADI port is high
-pros::adi::Pneumatics SkiBidi_Switcheroo({22, 'g'}, false);
-pros::adi::Pneumatics SkiBidi_Matchloader({22, 'f'}, false);
+pros::adi::Pneumatics Bucket_Base({22, 'h'}, false);            // Starts retracted, extends when the ADI port is high
+pros::adi::Pneumatics Switcheroo({22, 'g'}, false);
+pros::adi::Pneumatics Matchloader({22, 'f'}, false);
