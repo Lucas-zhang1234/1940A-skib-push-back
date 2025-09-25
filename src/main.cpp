@@ -48,44 +48,31 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	auton();
+	// Auton selector
+	int autonToRun;
+	// Loop until a valid button is pressed to select an auton
+	while (true) {
+		// Check if the X button is pressed, if so then run auton skills
+		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X))
+		{
+			autonToRun = 0;
+			break;
+		}
 
+		// Check if the A button is pressed, if so then run the cornerAuton
+		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A))
+		{
+			autonToRun = 1;
+			break;
+		}
 
+		// Delay to reduce resource usage
+		pros::delay(25);
+	}
+	auton(autonToRun);
 }
 
 int autonToRun = 0;
-
-class Button
-{
-  public:
-    int x, y, width, height;
-    std::string text;
-    pros::Color buttonColour, textColour;
-    
-    Button(int x, int y, int width, int height, std::string text, pros::Color buttonColour, pros::Color textColour)
-    : x(x), y(y), width(width), height(height), text(text), buttonColour(buttonColour), textColour(textColour){}
-
-    void render()
-    {
-        Brain.Screen.drawRectangle(x, y, width, height, buttonColour);
-        Brain.Screen.printAt(x + 10, y + 10, false, text.c_str());
-    }
-
-    bool isClicked()
-    {
-      if(Brain.Screen.pressing() && Brain.Screen.xPosition() >= x && Brain.Screen.xPosition() <= x + width &&
-      Brain.Screen.yPosition() >= y && Brain.Screen.yPosition() <= y + width) return true;
-      return false;
-    }
-};
-
-Button autonButtons[] = {
-  Button(10, 10, 150, 50, "Auton", pros::Color::green, pros::Color::black),
-//   Button(170, 10, 150, 50, "Auton Red 2", pros::Color::white, pros::Color::black),
-//   Button(10, 70, 150, 50, "Auton Blue 1", pros::Color::white, pros::Color::black),
-//   Button(170, 70, 150, 50, "Auton Blue 2", pros::Color::white, pros::Color::black)
-};
-
 
 /**
  * Runs the operator control code. This function will be started in its own task

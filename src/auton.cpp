@@ -1,12 +1,44 @@
 #include "auton.h"
 #include "lemlib/asset.hpp"
 #include "robot.hpp"
+#include "skills_auton.h"
 
 ASSET(path1_txt);
 ASSET(path3_txt);
 ASSET(testpath_txt);
 
-void auton() {
+void auton(int autonToRun) {
+    if (autonToRun == 0)
+    {
+        skills_auton();
+    }
+
+    if (autonToRun == 1)
+    {
+        cornerAuton();
+    }
+    
+    // --- LEGACY AUTON ---
+    // chassis.turnToHeading(270,  1000);
+    // chassis.moveToPoint(-28.583, -23.057, 3000);
+    // chassis.turnToHeading(180, 1000);
+    // chassis.moveToPoint(-32.434, -50.653, 2000, {.maxSpeed = 50});
+    // chassis.turnToHeading(90, 1000,{.maxSpeed = 60});
+    // chassis.moveToPoint(-23, -54, 1000,{.maxSpeed = 20});
+    // chassis.waitUntilDone();
+    // chassis.swingToPoint(-27.905, -47.123, DriveSide::LEFT, 5000, {.minSpeed=80, .earlyExitRange=2});
+    // chassis.moveToPose(-11.445, -34.758, 240, 10000);
+    // Inside_Skibidi_Roller.move(0);
+    // chassis.turnToHeading(90, 1000);
+    // chassis.moveToPose(-33.161, -47.037, 100, 2000);
+    // chassis.waitUntilDone();
+    // SkiBidi_Switcheroo.extend();
+    // Top_Skibidi_Roller.move(-12000);
+    // Inside_Skibidi_Roller.move(-12000);
+};
+
+void cornerAuton()
+{
     // TODO: Test entire auton to ensure that all the rollers are spinning the right way
     // TODO: and at the right time and the timings are all correct
     // Initialise
@@ -56,27 +88,4 @@ void auton() {
     Switcheroo.extend();
     Top_Roller.move(-12000);
     Inside_Roller.move(12000);
-
-    // --- LEGACY AUTON ---
-    // chassis.turnToHeading(270,  1000);
-    // chassis.moveToPoint(-28.583, -23.057, 3000);
-    // chassis.turnToHeading(180, 1000);
-    // chassis.moveToPoint(-32.434, -50.653, 2000, {.maxSpeed = 50});
-    // chassis.turnToHeading(90, 1000,{.maxSpeed = 60});
-    // chassis.moveToPoint(-23, -54, 1000,{.maxSpeed = 20});
-    // chassis.waitUntilDone();
-    // chassis.swingToPoint(-27.905, -47.123, DriveSide::LEFT, 5000, {.minSpeed=80, .earlyExitRange=2});
-    // chassis.moveToPose(-11.445, -34.758, 240, 10000);
-    // Inside_Skibidi_Roller.move(0);
-    // chassis.turnToHeading(90, 1000);
-    // chassis.moveToPose(-33.161, -47.037, 100, 2000);
-    // chassis.waitUntilDone();
-    // SkiBidi_Switcheroo.extend();
-    // Top_Skibidi_Roller.move(-12000);
-    // Inside_Skibidi_Roller.move(-12000);
-};
-
-void cornerAuton()
-{
-    
 }
