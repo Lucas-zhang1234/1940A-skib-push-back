@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lemlib/api.hpp" // IWYU pragma: keep
+#include "pros/colors.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
 #include "robot.hpp"
@@ -51,6 +52,40 @@ void autonomous() {
 
 
 }
+
+int autonToRun = 0;
+
+class Button
+{
+  public:
+    int x, y, width, height;
+    std::string text;
+    pros::Color buttonColour, textColour;
+    
+    Button(int x, int y, int width, int height, std::string text, pros::Color buttonColour, pros::Color textColour)
+    : x(x), y(y), width(width), height(height), text(text), buttonColour(buttonColour), textColour(textColour){}
+
+    void render()
+    {
+        Brain.Screen.drawRectangle(x, y, width, height, buttonColour);
+        Brain.Screen.printAt(x + 10, y + 10, false, text.c_str());
+    }
+
+    bool isClicked()
+    {
+      if(Brain.Screen.pressing() && Brain.Screen.xPosition() >= x && Brain.Screen.xPosition() <= x + width &&
+      Brain.Screen.yPosition() >= y && Brain.Screen.yPosition() <= y + width) return true;
+      return false;
+    }
+};
+
+Button autonButtons[] = {
+  Button(10, 10, 150, 50, "Auton", pros::Color::green, pros::Color::black),
+//   Button(170, 10, 150, 50, "Auton Red 2", pros::Color::white, pros::Color::black),
+//   Button(10, 70, 150, 50, "Auton Blue 1", pros::Color::white, pros::Color::black),
+//   Button(170, 70, 150, 50, "Auton Blue 2", pros::Color::white, pros::Color::black)
+};
+
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -108,9 +143,9 @@ void opcontrol() {
 		}
 
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
-			SkiBidi_Matchloader.extend();
+			Matchloader.extend();
 		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
-			SkiBidi_Matchloader.retract();
+			Matchloader.retract();
 		}
 
 		pros::delay(20);                               // Run for 20 ms then update
