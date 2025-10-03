@@ -81,7 +81,7 @@ void cornerAuton()
     chassis.turnToHeading(135, 500);
     Top_Roller.move_velocity(-50);
     Switcheroo.toggle();
-    chassis.moveToPoint(-27, 11,2000, {.maxSpeed = 100});
+    chassis.moveToPoint(-25, 9,2000, {.maxSpeed = 100});
     
 
     //  chassis.moveToPose(-22.73, 23.44, 64, 2000);
