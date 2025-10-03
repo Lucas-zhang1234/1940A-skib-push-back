@@ -8,65 +8,81 @@ ASSET(path1_txt);
 ASSET(path3_txt);
 ASSET(testpath_txt);
 
+int x_modifier = 1;
+int y_modifier = 1;
+int heading_modifier = 1;
+
+// TODO: Fix math
+int get_heading(int base)
+{
+    if (heading_modifier == 1) return base;
+    else if (heading_modifier == -1) return (180 - base) % 360;
+    else if (heading_modifier == 2) return (360 - base) % 360;
+    else return (180 - ((360 - base) % 360)) % 360;
+}
+
 void auton(int autonToRun) {
-    if (autonToRun == 0)
-    {
-        skills_auton();
+    switch (autonToRun) {
+        // skills
+        case 0:
+            skills_auton();
+            break;
+        // top left
+        case 1:
+            init(1, 1, 1);
+            break;
+        // bottom left
+        case 2:
+            init(1, -1, -1);
+            break;
+        // top right
+        case 3:
+            init(-1, 1, 0);
+            break;
+        // bottom right
+        case 4:
+            init(-1, -1, 2);
+            break;
     }
 
-    if (autonToRun == 1)
-    {
-        cornerAuton();
-    }
-    
-    // --- LEGACY AUTON ---
-    // chassis.turnToHeading(270,  1000);
-    // chassis.moveToPoint(-28.583, -23.057, 3000);
-    // chassis.turnToHeading(180, 1000);
-    // chassis.moveToPoint(-32.434, -50.653, 2000, {.maxSpeed = 50});
-    // chassis.turnToHeading(90, 1000,{.maxSpeed = 60});
-    // chassis.moveToPoint(-23, -54, 1000,{.maxSpeed = 20});
-    // chassis.waitUntilDone();
-    // chassis.swingToPoint(-27.905, -47.123, DriveSide::LEFT, 5000, {.minSpeed=80, .earlyExitRange=2});
-    // chassis.moveToPose(-11.445, -34.758, 240, 10000);
-    // Inside_Skibidi_Roller.move(0);
-    // chassis.turnToHeading(90, 1000);
-    // chassis.moveToPose(-33.161, -47.037, 100, 2000);
-    // chassis.waitUntilDone();
-    // SkiBidi_Switcheroo.extend();
-    // Top_Skibidi_Roller.move(-12000);
-    // Inside_Skibidi_Roller.move(-12000);
+    if (autonToRun != 0) run();
 };
 
-void cornerAuton()
+void init(int x, int y, int h)
 {
-    
+    x_modifier = 1;
+    y_modifier = 1;
+    heading_modifier = 1;
+}
+
+void run()
+{
     // Initialise
-    chassis.setPose(-50.425, 16.29, 0);
+    chassis.setPose(-50.425 * x_modifier, 16.29 * y_modifier, get_heading(0));
     Bottom_Roller.move(-12000);
     Top_Roller.move(12000);
     Switcheroo.retract();
 
     // Move to matchloader
-    chassis.moveToPose(-47, 48, 0, 1000);
-    chassis.turnToHeading(270, 1000);
+    chassis.moveToPose(-47 * x_modifier, 48 * y_modifier, get_heading(0), 1000);
+    chassis.turnToHeading(get_heading(270), 1000);
     chassis.waitUntilDone();
 
     // Collect blocks from matchloader
     Matchloader.extend();
-    chassis.moveToPose(-64, 44, 270, 1500);
+    chassis.moveToPose(-64 * x_modifier, 44 * y_modifier, get_heading(270), 1500);
     for (int i = 0; i < 3; i++) {
-        chassis.moveToPoint(-67.5, 44, 450);
-        chassis.moveToPoint(-64, 44, 450);
+        chassis.moveToPoint(-67.5 * x_modifier, 44 * y_modifier, 450);
+        chassis.moveToPoint(-64 * x_modifier, 44 * y_modifier, 450);
     }
  
     // Move to long goal
-    chassis.moveToPoint(-58, 45, 1000);
+    chassis.moveToPoint(-58 * x_modifier, 45 * y_modifier, 1000);
     chassis.waitUntilDone();
     Matchloader.retract();
     pros::delay(100);
     chassis.turnToHeading(90, 1000, {.minSpeed = 70});
-    chassis.moveToPose(-31.5, 45, 90, 1000, {.maxSpeed = 80});
+    chassis.moveToPose(-31.5 * x_modifier, 45 * y_modifier, get_heading(90), 1000, {.maxSpeed = 80});
     chassis.waitUntilDone();
 
     // Score all 4 blocks in the long goal
@@ -77,11 +93,11 @@ void cornerAuton()
     pros::delay(2800);
 
     // Move back slightly
-    chassis.moveToPoint(-60, 44, 1000, {.forwards=false});
-    chassis.turnToHeading(135, 500);
+    chassis.moveToPoint(-60 * x_modifier, 44 * y_modifier, 1000, {.forwards=false});
+    chassis.turnToHeading(get_heading(135), 500);
     Top_Roller.move_velocity(-50);
     Switcheroo.toggle();
-    chassis.moveToPoint(-25, 9,2000, {.maxSpeed = 100});
+    chassis.moveToPoint(-25 * x_modifier, 9 * y_modifier,2000, {.maxSpeed = 100});
     
 
     //  chassis.moveToPose(-22.73, 23.44, 64, 2000);
