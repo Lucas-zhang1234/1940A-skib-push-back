@@ -1,5 +1,6 @@
 #include "auton.h"
 #include "lemlib/asset.hpp"
+#include "pros/rtos.hpp"
 #include "robot.hpp"
 #include "skills_auton.h"
 
@@ -39,53 +40,55 @@ void auton(int autonToRun) {
 
 void cornerAuton()
 {
-    // TODO: Test entire auton to ensure that all the rollers are spinning the right way
-    // TODO: and at the right time and the timings are all correct
+    
     // Initialise
-    chassis.setPose(-46.874, -10.883, 115);
+    chassis.setPose(-50.425, 16.29, 0);
     Bottom_Roller.move(-12000);
-    Inside_Roller.move(12000);
-    Switcheroo.extend();
-    right_mg.move_velocity(70);
-    left_mg.move_velocity(70);
-    // Move to the block triplet first
-    chassis.moveToPoint(-21.676, -22.491, 3000, {.maxSpeed = 70});
-    // chassis.moveToPose(-21.676, -22.491, 110,  3000);
-    // Wait until we move to the block triplet
-    chassis.waitUntilDone();
-    // Wait 200 ms for a buffer delay
-    pros::delay(200);
-    // Turn towards the high goal in the middle
-    chassis.turnToHeading(44, 1000);
-    // Move to the high goal in the middle
-    chassis.moveToPoint(-8.335, -8.335, 1500);
-    // Score a single block into the high goal in the middle
-    // TODO: this might be incorrect / incomplete, test to fix
-    Top_Roller.move(-12000);
-    // Wait 800 ms for a buffer delay
-    pros::delay(800);
-    Inside_Roller.brake();
-    Top_Roller.brake();
-    // Move in front of the matchloader
-    chassis.moveToPoint(-47.157, -47.157, 1500);
-    // Turn towards the matchloader
+    Top_Roller.move(12000);
+    Switcheroo.retract();
+
+    // Move to matchloader
+    chassis.moveToPose(-47, 48, 0, 1000);
     chassis.turnToHeading(270, 1000);
-    // Move to the matchloader
-    chassis.moveToPoint(-56.783, -47.157, 1000);
-    // Start intaking
-    Bottom_Roller.move(-12000);
-    // Use a matchload mechanism to gain 3 more blocks
+    chassis.waitUntilDone();
+
+    // Collect blocks from matchloader
     Matchloader.extend();
-    // Delay for a second to ensure all blocks are taken
-    // TODO: test the timing of this delay so that all 3 blocks of our colour are taken but other blocks are not intaked
-    pros::delay(1400);
-    Bottom_Roller.brake();
-    // Turn towards the long goal
-    chassis.turnToHeading(90, 1000);
-    // Move to the long goal
-    chassis.moveToPoint(-32.151, -47.123, 1200);
-    // Score as many blocks as possible
+    chassis.moveToPose(-64, 44, 270, 1500);
+    for (int i = 0; i < 3; i++) {
+        chassis.moveToPoint(-67, 44, 450);
+        chassis.moveToPoint(-64, 44, 450);
+    }
+
+    // Move to long goal
+    chassis.moveToPoint(-58, 44, 1000);
+    chassis.waitUntilDone();
+    Matchloader.retract();
+    pros::delay(100);
+    chassis.turnToHeading(90, 1000, {.minSpeed = 70});
+    chassis.moveToPose(-31.5, 44, 90, 1000, {.maxSpeed = 80});
+    chassis.waitUntilDone();
+
+    // Score all 4 blocks in the long goal
     Switcheroo.extend();
-    Top_Roller.move(-12000);
-    Inside_Roller.move(12000);
+    Bottom_Roller.move(-12000);
+    Top_Roller.move(12000);
+    Inside_Roller.move(-12000);
+    pros::delay(2800);
+
+    // Move back slightly
+    chassis.moveToPoint(-50, 44, 1000, {.forwards=false});
+    chassis.turnToHeading(135, 500);
+    Top_Roller.move_velocity(-50);
+    Switcheroo.toggle();
+    chassis.moveToPoint(-23, 13,2000, {.minSpeed = 70});
+    
+
+    //  chassis.moveToPose(-22.73, 23.44, 64, 2000);
+    //  chassis.turnToHeading(135, 2000);
+    //  Matchloader.extend();
+    //  chassis.moveToPose(-13, 13, 135,  1000);
+    //  Top_Roller.move(-12000);
+    //  Inside_Roller.move(-12000);
+    
 }

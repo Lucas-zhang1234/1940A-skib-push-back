@@ -30,7 +30,9 @@ extern pros::Motor Bottom_Roller;
 extern pros::Motor Top_Roller;
 extern pros::Motor Inside_Roller;
 
-extern pros::adi::Pneumatics Bucket_Base;
+extern pros::adi::Pneumatics Double_Park;
 extern pros::adi::Pneumatics Switcheroo;
 extern pros::adi::Pneumatics Matchloader;
+extern pros::adi::Pneumatics ODOM_Lift;
 
+extern pros::Optical SkIbIdI_oPtIcAl;

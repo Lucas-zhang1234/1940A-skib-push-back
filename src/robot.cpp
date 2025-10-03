@@ -1,4 +1,6 @@
 #include "robot.hpp"
+#include "pros/adi.hpp"
+#include "pros/optical.hpp"
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
@@ -7,7 +9,7 @@ pros::MotorGroup left_mg({-3, -4, -5});
 pros::MotorGroup right_mg({9, 7, 6});
 
 lemlib::Drivetrain drivetrain(&left_mg, &right_mg,
-                              12.625, // track width in inches
+                              13.25, // track width in inches
                               lemlib:: Omniwheel:: NEW_325, // Wheel configuration
                               450, // RPM
                               2 // Drift was 2  0.5
@@ -18,13 +20,13 @@ pros::Imu imu(8);
 pros::Rotation horizontalRotation(20); 
 pros::Rotation verticallRotation(11); 
 
-lemlib::TrackingWheel horizontal_tracking_wheel(&horizontalRotation, lemlib::Omniwheel::NEW_2, 3.5);
-lemlib::TrackingWheel vertical_tracking_wheel(&verticallRotation, lemlib::Omniwheel::NEW_2, 3);
+lemlib::TrackingWheel horizontal_tracking_wheel(&horizontalRotation, lemlib::Omniwheel::NEW_2, -4);
+lemlib::TrackingWheel vertical_tracking_wheel(&verticallRotation, lemlib::Omniwheel::NEW_2, 0);
 
 
 lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to null
                             nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
-                            &horizontal_tracking_wheel, // horizontal tracking wheel 1
+                            nullptr, // horizontal tracking wheel 1
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
                             &imu // inertial sensor
 );
@@ -45,7 +47,7 @@ lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
 // angular PID controller
 lemlib::ControllerSettings angular_controller(6, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              45, // derivative gain (kD)
+                                              55, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in degrees
                                               100, // small error range timeout, in milliseconds
@@ -67,6 +69,9 @@ pros::Motor Top_Roller(12, pros::v5::MotorGears::green);
 pros::Motor Inside_Roller(19, pros::v5::MotorGears::green);
 
 
-pros::adi::Pneumatics Bucket_Base({22, 'h'}, false);            // Starts retracted, extends when the ADI port is high
-pros::adi::Pneumatics Switcheroo({22, 'g'}, false);
-pros::adi::Pneumatics Matchloader({22, 'f'}, false);
+pros::adi::Pneumatics Double_Park({22, 'g'}, true);            // Starts retracted, extends when the ADI port is high
+pros::adi::Pneumatics Switcheroo({22, 'f'}, false);
+pros::adi::Pneumatics Matchloader({22, 'h'}, false);
+pros::adi::Pneumatics ODOM_Lift({22,'e'},false);
+
+pros::Optical SkIbIdI_oPtIcAl(2);

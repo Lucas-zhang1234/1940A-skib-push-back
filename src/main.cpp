@@ -1,11 +1,18 @@
 #include "main.h"
 #include "lemlib/api.hpp" // IWYU pragma: keep
+#include "lemlib/chassis/chassis.hpp"
 #include "pros/colors.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
 #include "robot.hpp"
 #include "auton.h"
 #include "skills_auton.h"
+#include "helpers.hpp"
+#include <iomanip>
+#include "auton.h"
+#include "lemlib/asset.hpp"
+
+
 
 
 /**
@@ -16,6 +23,26 @@
  */
 void initialize() {
 	chassis.calibrate();
+	ODOM_Lift.retract();
+	// imu.reset(true);
+	SkIbIdI_oPtIcAl.set_led_pwm(100);
+
+    // pros::lcd::initialize();
+    // pros::Task screenTask([&]()->void {
+    //     while (true) {
+    //         pros::lcd::print(0, "X, %f", chassis.getPose().x);
+    //         pros::lcd::print(1, "Y,%f", chassis.getPose().y);
+    //         pros::lcd::print(2, "Theta, %f", chassis.getPose().theta);
+
+	// 		printf("x: %f\n", chassis.getPose().x);
+	// 		printf("y: %f\n", chassis.getPose().y);
+	// 		printf("theta: %f\n", chassis.getPose().theta);
+
+    //         pros::delay(100);
+    //     }
+    // });
+
+	printf("init done");
 }
 
 /**
@@ -48,28 +75,29 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	// Auton selector
-	int autonToRun;
-	// Loop until a valid button is pressed to select an auton
-	while (true) {
-		// Check if the X button is pressed, if so then run auton skills
-		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X))
-		{
-			autonToRun = 0;
-			break;
-		}
+	cornerAuton();
+	// // Auton selector
+	// int autonToRun;
+	// // Loop until a valid button is pressed to select an auton
+	// while (true) {
+	// 	// Check if the X button is pressed, if so then run auton skills
+	// 	if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X))
+	// 	{
+	// 		autonToRun = 0;
+	// 		break;
+	// 	}
 
-		// Check if the A button is pressed, if so then run the cornerAuton
-		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A))
-		{
-			autonToRun = 1;
-			break;
-		}
+	// 	// Check if the A button is pressed, if so then run the cornerAuton
+	// 	if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A))
+	// 	{
+	// 		autonToRun = 1;
+	// 		break;
+	// 	}
 
-		// Delay to reduce resource usage
-		pros::delay(25);
-	}
-	auton(autonToRun);
+	// 	// Delay to reduce resource usage
+	// 	pros::delay(25);
+	// }
+	// auton(autonToRun);
 }
 
 int autonToRun = 0;
@@ -89,6 +117,7 @@ int autonToRun = 0;
  */
 void opcontrol() {
 	int isHighGoal = 127;
+	ODOM_Lift.extend();
 	while (true) {
 		double forwards = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		double turn = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
@@ -118,11 +147,12 @@ void opcontrol() {
 		}	
 	
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
-			Bucket_Base.extend();
+			Matchloader.extend();
 		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
-			Bucket_Base.retract();
+			Matchloader.retract();
 		}
 		 
+		// Matchloader and Switcheroo have activation buttons opposite to the actual buttons that activate them.
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
 			Switcheroo.extend();
 		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
@@ -130,9 +160,9 @@ void opcontrol() {
 		}
 
 		if (partner.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
-			Matchloader.extend();
+			Double_Park.extend();
 		} else if (partner.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
-			Matchloader.retract();
+			Double_Park.retract();
 		}
 
 		pros::delay(20);                               // Run for 20 ms then update
