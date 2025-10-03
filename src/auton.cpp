@@ -56,17 +56,17 @@ void cornerAuton()
     Matchloader.extend();
     chassis.moveToPose(-64, 44, 270, 1500);
     for (int i = 0; i < 3; i++) {
-        chassis.moveToPoint(-67, 44, 450);
+        chassis.moveToPoint(-67.5, 44, 450);
         chassis.moveToPoint(-64, 44, 450);
     }
-
+ 
     // Move to long goal
-    chassis.moveToPoint(-58, 44, 1000);
+    chassis.moveToPoint(-58, 45, 1000);
     chassis.waitUntilDone();
     Matchloader.retract();
     pros::delay(100);
     chassis.turnToHeading(90, 1000, {.minSpeed = 70});
-    chassis.moveToPose(-31.5, 44, 90, 1000, {.maxSpeed = 80});
+    chassis.moveToPose(-31.5, 45, 90, 1000, {.maxSpeed = 80});
     chassis.waitUntilDone();
 
     // Score all 4 blocks in the long goal
@@ -77,11 +77,11 @@ void cornerAuton()
     pros::delay(2800);
 
     // Move back slightly
-    chassis.moveToPoint(-50, 44, 1000, {.forwards=false});
+    chassis.moveToPoint(-60, 44, 1000, {.forwards=false});
     chassis.turnToHeading(135, 500);
     Top_Roller.move_velocity(-50);
     Switcheroo.toggle();
-    chassis.moveToPoint(-23, 13,2000, {.minSpeed = 70});
+    chassis.moveToPoint(-27, 11,2000, {.maxSpeed = 100});
     
 
     //  chassis.moveToPose(-22.73, 23.44, 64, 2000);
