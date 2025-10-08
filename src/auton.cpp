@@ -61,14 +61,14 @@ void Left_7B_2G()
     chassis.moveToPose(-62, 45, 270, 1500);
     for (int i = 0; i < 3; i++) {
         chassis.moveToPoint(-68, 45, 400);
-        chassis.moveToPoint(-64, 45, 400);
+        chassis.moveToPoint(-62, 45, 400);
     }
  
     // Move to long goal
-    chassis.moveToPoint(-60, 44.5, 1000);
+    chassis.moveToPoint(-55, 45, 1000);
     chassis.waitUntilDone();
     Matchloader.retract();
-    pros::delay(100);
+    pros::delay(200);
     chassis.turnToHeading(90, 1000, {.minSpeed = 70});
     chassis.moveToPose(-32, 45, 90, 1000, {.maxSpeed = 80});
     chassis.waitUntilDone();
@@ -78,18 +78,22 @@ void Left_7B_2G()
     Bottom_Roller.move(-12000);
     Top_Roller.move(12000);
     Inside_Roller.move(-12000);
-    pros::delay(2800);
+    pros::delay(2700);
 
     // Move back slightly
     chassis.moveToPoint(-57, 45, 3000, {.forwards=false});
     chassis.turnToHeading(135, 500);
-    Top_Roller.move_velocity(-12000);
+    Top_Roller.move_velocity(-8000);
     Switcheroo.toggle();
-    chassis.moveToPoint(-23.5, 10,2000, {.maxSpeed = 100});
+    chassis.moveToPoint(-24.5, 12,2000, {.maxSpeed = 90});
     chassis.waitUntilDone();
-    pros::delay(1000);
+
+    // Pause
+    pros::delay(900);
     Bottom_Roller.brake();
-    chassis.moveToPoint(-20, 7,2000, {.minSpeed = 100});
+
+    // Ram
+    chassis.moveToPoint(-20, 10,2000, {.minSpeed = 100});
 }
 
 void Right_7B_2G()
@@ -137,6 +141,6 @@ void Right_7B_2G()
     Switcheroo.toggle();
     chassis.moveToPoint(22, 14,2000, {.maxSpeed = 60});
     chassis.waitUntilDone();
-    pros::delay(300);
+    pros::delay(900);
     Bottom_Roller.move(12000);
 }
