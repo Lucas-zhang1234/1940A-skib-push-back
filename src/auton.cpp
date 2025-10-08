@@ -59,16 +59,13 @@ void Left_7B_2G()
     // Collect blocks from matchloader
     Matchloader.extend();
     chassis.moveToPose(-62, 45, 270, 1500);
-    chassis.waitUntilDone();
     for (int i = 0; i < 3; i++) {
         chassis.moveToPoint(-68, 45, 400);
-        chassis.waitUntilDone();
-        chassis.moveToPoint(-63.5, 45, 400);
-        chassis.waitUntilDone();
+        chassis.moveToPoint(-64, 45, 400);
     }
  
     // Move to long goal
-    chassis.moveToPoint(-58, 44.5, 1000);
+    chassis.moveToPoint(-60, 44.5, 1000);
     chassis.waitUntilDone();
     Matchloader.retract();
     pros::delay(100);
@@ -84,14 +81,15 @@ void Left_7B_2G()
     pros::delay(2800);
 
     // Move back slightly
-    chassis.moveToPoint(-50, 45, 3000, {.forwards=false});
+    chassis.moveToPoint(-57, 45, 3000, {.forwards=false});
     chassis.turnToHeading(135, 500);
     Top_Roller.move_velocity(-12000);
     Switcheroo.toggle();
-    chassis.moveToPoint(-16, 14,2000, {.maxSpeed = 100});
-    pros::delay(400);
+    chassis.moveToPoint(-23.5, 10,2000, {.maxSpeed = 100});
+    chassis.waitUntilDone();
+    pros::delay(1000);
     Bottom_Roller.brake();
-    chassis.moveToPoint(-8, 7,2000, {.minSpeed = 100});
+    chassis.moveToPoint(-20, 7,2000, {.minSpeed = 100});
 }
 
 void Right_7B_2G()
