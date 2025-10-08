@@ -75,7 +75,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	auton(1);
+	auton(0);
 	// // Auton selector
 	// int autonToRun;
 	// // Loop until a valid button is pressed to select an auton
@@ -100,7 +100,7 @@ void autonomous() {
 	// auton(autonToRun);
 }
 
-int autonToRun = 0;
+
 
 /**
  * Runs the operator control code. This function will be started in its own task
