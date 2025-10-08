@@ -1,4 +1,4 @@
-#include "main.h";
+#include "main.h"
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/colors.hpp"
@@ -75,7 +75,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	auton(2);
+	auton(1);
 	// // Auton selector
 	// int autonToRun;
 	// // Loop until a valid button is pressed to select an auton
