@@ -98,7 +98,7 @@ void Left_7B_2G()
 
 void Right_7B_2G()
 {
-    chassis.setPose(50.425, 16.29, 0);
+    chassis.setPose(50.425, 14.5, 0);
     Bottom_Roller.move(-12000);
     Top_Roller.move(12000);
     Switcheroo.retract();
@@ -123,7 +123,7 @@ void Right_7B_2G()
     Matchloader.retract();
     pros::delay(100);
     chassis.turnToHeading(90, 1000, {.minSpeed = 70});
-    chassis.moveToPose(31, 47, 90, 1300, {.maxSpeed = 80});
+    chassis.moveToPose(31.5, 47, 90, 1300, {.maxSpeed = 80});
     chassis.waitUntilDone();
 
     Top_Roller.move_velocity(600);
@@ -133,14 +133,14 @@ void Right_7B_2G()
     Bottom_Roller.move(-12000);
     Top_Roller.move(12000);
     Inside_Roller.move(-12000);
-    pros::delay(2000);
+    pros::delay(2600);
 
     // Move back slightly
     chassis.moveToPoint(55, 46, 1000, {.forwards=false});
-    chassis.turnToHeading(225, 500);
     Switcheroo.toggle();
-    chassis.moveToPoint(22, 14,2000, {.maxSpeed = 60});
+    chassis.turnToHeading(215, 500);
+    chassis.moveToPoint(24, 13,2000, {.maxSpeed = 60});
     chassis.waitUntilDone();
-    pros::delay(900);
+    pros::delay(300);
     Bottom_Roller.move(12000);
 }
