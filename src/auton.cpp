@@ -116,19 +116,18 @@ void Right_7B_2G()
     // Collect blocks from matchloader
     Matchloader.extend();
     chassis.moveToPose(60, 46, 90, 1500);
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         chassis.moveToPoint(61, 46, 450, {.minSpeed = 100});
-        chassis.moveToPoint(60, 46, 450);
+        chassis.moveToPoint(59.5, 46, 450, {.minSpeed = 100});
     }
  
     // Move to long goal
     chassis.waitUntilDone();
     chassis.moveToPoint(56, 46, 1000);
-    chassis.waitUntilDone();
     Matchloader.retract();
     pros::delay(100);
     chassis.turnToHeading(90, 1000, {.minSpeed = 70});
-    chassis.moveToPose(28.5, 46, 90, 1300, {.maxSpeed = 70});
+    chassis.moveToPoint(34, 46, 1900, {.maxSpeed = 70});
     chassis.waitUntilDone();
 
     // Score all 4 blocks in the long goal
@@ -142,19 +141,18 @@ void Right_7B_2G()
     pros::delay(200);
 
     // Move back slightly
-    chassis.moveToPoint(51, 46, 1000, {.forwards=false});
+    chassis.moveToPoint(50, 46, 1000, {.forwards=false});
 
     // Score 4 blocks in the low goal
-    chassis.turnToHeading(215, 500);
-    
-    chassis.moveToPoint(23.85, 13.85,2000, {.maxSpeed = 50});
+    chassis.turnToHeading(225, 500);
+    chassis.moveToPoint(25, 16.7,2000, {.maxSpeed = 50});
     chassis.waitUntilDone();
     pros::delay(600);
-    Bottom_Roller.move(14000);
+    Matchloader.toggle();
     Inside_Roller.move(-12000);
-    int targetX = chassis.getPose().x - 3;
-    int targetY = chassis.getPose().y - 1.67;
-    chassis.moveToPose(targetX, targetY, chassis.getPose().theta, 1000, {.maxSpeed = 40});
+    Top_Roller.move(-500);
+    Inside_Roller.move_velocity(-75);
+    Top_Roller.move_velocity(-25);
 }
 
 void StartIntake()
