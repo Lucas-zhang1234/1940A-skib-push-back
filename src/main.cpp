@@ -78,7 +78,7 @@ void autonomous() {
 	// 0 = skills
 	// 1 = left match
 	// 2 = right match
-	auton(0);
+	auton(2);
 	// // Auton selector
 	// int autonToRun;
 	// // Loop until a valid button is pressed to select an auton
@@ -121,6 +121,8 @@ void autonomous() {
 void opcontrol() {
 	int isHighGoal = 127;
 	ODOM_Lift.extend();
+	right_mg.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+    left_mg.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 	while (true) {
 		double forwards = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		double turn = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
