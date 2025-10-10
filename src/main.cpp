@@ -78,7 +78,7 @@ void autonomous() {
 	// 0 = skills
 	// 1 = left match
 	// 2 = right match
-	auton(2);
+	auton(0);
 	// // Auton selector
 	// int autonToRun;
 	// // Loop until a valid button is pressed to select an auton
