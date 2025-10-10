@@ -24,24 +24,6 @@ void auton(int autonToRun) {
     {
         Right_7B_2G();
     }
-    
-    // --- LEGACY AUTON ---
-    // chassis.turnToHeading(270,  1000);
-    // chassis.moveToPoint(-28.583, -23.057, 3000);
-    // chassis.turnToHeading(180, 1000);
-    // chassis.moveToPoint(-32.434, -50.653, 2000, {.maxSpeed = 50});
-    // chassis.turnToHeading(90, 1000,{.maxSpeed = 60});
-    // chassis.moveToPoint(-23, -54, 1000,{.maxSpeed = 20});
-    // chassis.waitUntilDone();
-    // chassis.swingToPoint(-27.905, -47.123, DriveSide::LEFT, 5000, {.minSpeed=80, .earlyExitRange=2});
-    // chassis.moveToPose(-11.445, -34.758, 240, 10000);
-    // Inside_Skibidi_Roller.move(0);
-    // chassis.turnToHeading(90, 1000);
-    // chassis.moveToPose(-33.161, -47.037, 100, 2000);
-    // chassis.waitUntilDone();
-    // SkiBidi_Switcheroo.extend();
-    // Top_Skibidi_Roller.move(-12000);
-    // Inside_Skibidi_Roller.move(-12000);
 };
 
 void Left_7B_2G()

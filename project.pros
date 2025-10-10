@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Auton_Skills",
+    "project_name": "Finals AUTON",
     "target": "v5",
     "templates": {
       "LemLib": {
@@ -635,7 +635,8 @@
       }
     },
     "upload_options": {
-      "slot": 3
+      "slot": 4,
+      "description": "finals auton that scores 7 blocks in the long goal"
     },
     "use_early_access": false
   }
