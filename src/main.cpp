@@ -78,6 +78,8 @@ void autonomous() {
 	// 0 = skills
 	// 1 = left match
 	// 2 = right match
+	// 3 = left finals match
+	// 4 = right finals match
 	auton(1);
 	// // Auton selector
 	// int autonToRun;
