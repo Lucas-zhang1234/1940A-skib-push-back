@@ -5,6 +5,7 @@
 #include "pros/rtos.hpp"
 #include "robot.hpp"
 #include "skills_auton.h"
+#include "finals_auton.h"
 
 ASSET(path1_txt);
 ASSET(path3_txt);
@@ -23,6 +24,16 @@ void auton(int autonToRun) {
     if (autonToRun == 2)
     {
         Right_7B_2G();
+    }
+
+    if (autonToRun == 3)
+    {
+        finals_left_auton();
+    }
+
+    if (autonToRun == 4)
+    {
+        finals_right_auton();
     }
 };
 

@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Finals AUTON",
+    "project_name": "Left_Finals_Auton_7B_1G",
     "target": "v5",
     "templates": {
       "LemLib": {
@@ -636,7 +636,7 @@
     },
     "upload_options": {
       "slot": 4,
-      "description": "finals auton that scores 7 blocks in the long goal"
+      "description": "finals auton that scores 7 blocks in the long goal (left corner)"
     },
     "use_early_access": false
   }
