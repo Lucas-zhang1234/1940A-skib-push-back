@@ -11,7 +11,27 @@ ASSET(path1_txt);
 ASSET(path3_txt);
 ASSET(testpath_txt);
 
-void auton(int autonToRun) {
+void auton() {
+    chassis.setPose(-46, -11, 115);
+    Bottom_Roller.move(-12000);
+    Inside_Roller.move(12000);
+    right_mg.move_velocity(500);
+    left_mg.move_velocity(500);
+    chassis.moveToPose(-22, -22, 300);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(270, 1000);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(-35, -22, 10000);
+    chassis.waitUntilDone();
+    chassis.moveToPose(-35, -47, 90, 2000);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(90, 1000);
+    chassis.moveToPoint(-23, -54, 1000);
+    chassis.waitUntilDone();
+    Switcheroo.extend();
+    Top_Roller.move(-12000);
+    Inside_Roller.move(-12000);
+
     if (autonToRun == 0)
     {
         skills_auton();
