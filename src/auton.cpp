@@ -40,7 +40,7 @@ void auton(int autonToRun) {
 void Left_7B_2G()
 {
     // Initialise
-    chassis.setPose(-50.425, 14, 0);
+    chassis.setPose(-50.425, 15, 0);
     Bottom_Roller.move(-12000);
     Top_Roller.move(12000);
     Switcheroo.retract();
@@ -138,14 +138,12 @@ void Right_7B_2G()
 
     // Score 3 blocks in the low goal
     chassis.turnToHeading(225, 500);
-    chassis.moveToPoint(25, 16.7,2000, {.maxSpeed = 50});
+    chassis.moveToPoint(25, 16.7, 2000, {.maxSpeed = 50});
+    
     chassis.waitUntilDone();
-    pros::delay(600);
-    Matchloader.toggle();
-    Inside_Roller.move(-12000);
-    Top_Roller.move(-500);
     Inside_Roller.move_velocity(-75);
-    Top_Roller.move_velocity(-25);
+    Top_Roller.move_velocity(-32);
+    Matchloader.toggle();
 }
 
 void StartIntake()
