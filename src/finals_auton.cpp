@@ -30,7 +30,7 @@ void finals_right_auton()
     chassis.waitUntilDone();
     Matchloader.retract();
     pros::delay(100);
-    chassis.moveToPose(29.3, 47, 270, 2000);
+    chassis.moveToPose(29.3, 47.5, 270, 2000);
     chassis.waitUntilDone();
 
     // Score all 4 blocks in the long goal

@@ -11,27 +11,7 @@ ASSET(path1_txt);
 ASSET(path3_txt);
 ASSET(testpath_txt);
 
-void auton() {
-    chassis.setPose(-46, -11, 115);
-    Bottom_Roller.move(-12000);
-    Inside_Roller.move(12000);
-    right_mg.move_velocity(500);
-    left_mg.move_velocity(500);
-    chassis.moveToPose(-22, -22, 300);
-    chassis.waitUntilDone();
-    chassis.turnToHeading(270, 1000);
-    chassis.waitUntilDone();
-    chassis.moveToPoint(-35, -22, 10000);
-    chassis.waitUntilDone();
-    chassis.moveToPose(-35, -47, 90, 2000);
-    chassis.waitUntilDone();
-    chassis.turnToHeading(90, 1000);
-    chassis.moveToPoint(-23, -54, 1000);
-    chassis.waitUntilDone();
-    Switcheroo.extend();
-    Top_Roller.move(-12000);
-    Inside_Roller.move(-12000);
-
+void auton(int autonToRun) {
     if (autonToRun == 0)
     {
         skills_auton();
@@ -129,18 +109,18 @@ void Right_7B_2G()
     // Collect blocks from matchloader
     Matchloader.extend();
     chassis.moveToPose(60, 46, 90, 1500);
-    for (int i = 0; i < 2; i++) {
-        chassis.moveToPoint(61, 46, 450, {.minSpeed = 100});
+    for (int i = 0; i < 3; i++) {
+        chassis.moveToPoint(61.5, 46, 450, {.minSpeed = 100});
         chassis.moveToPoint(59.5, 46, 450, {.minSpeed = 100});
     }
  
     // Move to long goal
     chassis.waitUntilDone();
-    chassis.moveToPoint(56, 46, 1000);
+    chassis.moveToPoint(56, 47.6, 1000);
     Matchloader.retract();
     pros::delay(100);
     chassis.turnToHeading(90, 1000, {.minSpeed = 70});
-    chassis.moveToPoint(34, 46, 1900, {.maxSpeed = 70});
+    chassis.moveToPoint(34, 47.6, 1900, {.maxSpeed = 70});
     chassis.waitUntilDone();
 
     // Score all 4 blocks in the long goal
@@ -149,14 +129,14 @@ void Right_7B_2G()
     Top_Roller.move(12000);
     Inside_Roller.move(-12000);
     pros::delay(2700);
-    Inside_Roller.brake();
-    Switcheroo.toggle();
+    // Inside_Roller.brake();
+    // Switcheroo.toggle();
     pros::delay(200);
 
     // Move back slightly
     chassis.moveToPoint(50, 46, 1000, {.forwards=false});
 
-    // Score 4 blocks in the low goal
+    // Score 3 blocks in the low goal
     chassis.turnToHeading(225, 500);
     chassis.moveToPoint(25, 16.7,2000, {.maxSpeed = 50});
     chassis.waitUntilDone();
